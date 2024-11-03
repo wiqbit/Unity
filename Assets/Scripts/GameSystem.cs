@@ -368,6 +368,14 @@ namespace Assets.Scripts
 				_fromSquare?.Unselect();
 				_fromSquare = null;
 
+				for (int rank = 1; rank <= 8; rank++)
+				{
+					for (int file = 1; file <= 8; file++)
+					{
+						_squares[rank, file].Unselect();
+					}
+				}
+
 				Square toSquare = GetSquare(move.ToAlgebraicNotation);
 
 				if (toSquare.IsKnight)
@@ -691,12 +699,30 @@ namespace Assets.Scripts
 				{
 					_fromSquare = square;
 					square.Select();
+
+					Dictionary<string, List<string>> moves = _chess.GetMoves(GetForsythEdwardsNotation());
+
+					if (moves.ContainsKey(algebraicNotation))
+					{
+						foreach (string move in moves[algebraicNotation])
+						{
+							GetSquare(move).Select();
+						}
+					}
 				}
 			}
 			else if (_fromSquare == square)
 			{
 				_fromSquare = null;
 				square.Unselect();
+
+				for (int rank = 1; rank <= 8; rank++)
+				{
+					for (int file = 1; file <= 8; file++)
+					{
+						_squares[rank, file].Unselect();
+					}
+				}
 			}
 			else
 			{

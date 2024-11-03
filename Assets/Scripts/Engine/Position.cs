@@ -791,7 +791,8 @@ namespace Assets.Scripts.Engine
 			GetMoves(rank, file, verticalWest, moves, 1);
 
 			// en passant
-			if (string.Compare(_possibleEnPassantTarget, "-") != 0)
+			if (string.Compare(_possibleEnPassantTarget, "-") != 0
+				&& ((string.Compare(_activeColor, "w") == 0 && _possibleEnPassantTarget.EndsWith("5")) || (string.Compare(_activeColor, "b") == 0 && _possibleEnPassantTarget.EndsWith("2"))))
 			{
 				(int r, int f) = GetRankAndFile(_possibleEnPassantTarget);
 
